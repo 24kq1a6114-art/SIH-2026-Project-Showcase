@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07111f" />
+  <title>SIH 2026 | Project Showcase</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07111f;
+      --card: rgba(255,255,255,.075);
+      --border: rgba(255,255,255,.13);
+      --text: #f7fbff;
+      --muted: #a9b8c9;
+      --primary: #67e8f9;
+      --secondary: #a78bfa;
+      --success: #34d399;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(103,232,249,.16), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(167,139,250,.18), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(52,211,153,.10), transparent 30%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    .glow {
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .14;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .glow.one { background: var(--primary); top: -140px; left: -120px; }
+    .glow.two { background: var(--secondary); right: -140px; top: 35%; }
+
+    nav {
+      width: min(1120px, calc(100% - 32px));
+      margin: 18px auto 0;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(7,17,31,.58);
+      backdrop-filter: blur(18px);
+      position: relative;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #06101c;
+      font-weight: 900;
+      box-shadow: 0 10px 35px rgba(103,232,249,.2);
+    }
+
+    .nav-tag {
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 80px 0 55px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(103,232,249,.22);
+      border-radius: 999px;
+      background: rgba(103,232,249,.07);
+      color: var(--primary);
+      font-size: .84rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 15px var(--success);
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: auto;
+      font-size: clamp(2.6rem, 7vw, 5.7rem);
+      line-height: .98;
+      letter-spacing: -4px;
+      background: linear-gradient(110deg, #fff 15%, var(--primary) 48%, var(--secondary) 82%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 25px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.75;
+    }
+
+    .actions {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 14px 22px;
+      border-radius: 13px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: .25s ease;
+      background: rgba(255,255,255,.055);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(103,232,249,.5);
+      box-shadow: 0 14px 35px rgba(0,0,0,.24);
+    }
+
+    .btn.primary {
+      color: #06101c;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), #7dd3fc);
+    }
+
+    .btn.demo {
+      border-color: rgba(167,139,250,.35);
+      background: linear-gradient(135deg, rgba(167,139,250,.14), rgba(103,232,249,.06));
+    }
+
+    .section {
+      padding: 45px 0 85px;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .72rem;
+      font-weight: 900;
+      margin-bottom: 9px;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      letter-spacing: -1px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      position: relative;
+      padding: 28px;
+      min-height: 230px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+      backdrop-filter: blur(15px);
+      overflow: hidden;
+      transition: .3s ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      right: -70px;
+      top: -70px;
+      background: var(--primary);
+      filter: blur(65px);
+      opacity: .11;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,.24);
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-size: 1.45rem;
+      margin-bottom: 20px;
+      background: rgba(103,232,249,.10);
+      border: 1px solid rgba(103,232,249,.18);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 9px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .card-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 800;
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .info {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255,255,255,.035);
+      line-height: 1.6;
+      font-size: .9rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      width: min(1120px, calc(100% - 32px));
+      margin: auto;
+      padding: 25px 0 35px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translate(-50%, 120px);
+      padding: 12px 17px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(7,17,31,.92);
+      backdrop-filter: blur(15px);
+      color: var(--text);
+      opacity: 0;
+      transition: .3s ease;
+      z-index: 20;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    @media (max-width: 700px) {
+      nav { margin-top: 10px; }
+      .nav-tag { display: none; }
+      .hero { min-height: 67vh; padding-top: 60px; }
+      h1 { letter-spacing: -2.5px; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: auto; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <nav>
+    <div class="brand">
+      <div class="brand-mark">SIH</div>
+      <span>Project Showcase</span>
+    </div>
+    <div class="nav-tag">Smart India Hackathon 2026</div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="badge"><span class="dot"></span> SIH 2026 • Project Portal</div>
+
+        <h1>Innovation that<br />solves real problems.</h1>
+
+        <p>
+          Welcome to our SIH project showcase. Explore the application and
+          watch the complete working demo through the links below.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary"
+             href="https://drive.google.com/file/d/1jlnFs-9Q5GZLLNJJBaJrskscRuGv9DGM/view?usp=drivesdk"
+             target="_blank" rel="noopener noreferrer"
+             onclick="showToast('Opening the application…')">
+            🚀 Open App
+          </a>
+
+          <a class="btn demo"
+             href="https://drive.google.com/file/d/13L8gk4rN-7WRSs-js1jWhjJonhiTk5cM/view?usp=drivesdk"
+             target="_blank" rel="noopener noreferrer"
+             onclick="showToast('Opening the demo…')">
+            ▶ Watch Demo
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="links">
+      <div class="section-head">
+        <div class="eyebrow">Explore</div>
+        <h2>Project Resources</h2>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icon">📱</div>
+          <h3>Application</h3>
+          <p>
+            Open the project application and explore the implemented solution
+            directly.
+          </p>
+          <a class="card-link"
+             href="https://drive.google.com/file/d/1jlnFs-9Q5GZLLNJJBaJrskscRuGv9DGM/view?usp=drivesdk"
+             target="_blank" rel="noopener noreferrer">
+            Launch Application ↗
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="icon">🎬</div>
+          <h3>Demo Video</h3>
+          <p>
+            See the project workflow, features, and overall working through
+            our demonstration video.
+          </p>
+          <a class="card-link"
+             href="https://drive.google.com/file/d/13L8gk4rN-7WRSs-js1jWhjJonhiTk5cM/view?usp=drivesdk"
+             target="_blank" rel="noopener noreferrer">
+            View Demo ↗
+          </a>
+        </article>
+      </div>
+
+      <div class="info">
+        💡 Both resources open in a new tab. Make sure the Google Drive
+        sharing permissions allow viewers to access the files.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 • SIH Project Showcase</span>
+    <span>Built for presentation & demonstration</span>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1600);
+    }
+  </script>
+</body>
+</html>
